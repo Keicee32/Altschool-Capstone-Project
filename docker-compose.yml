@@ -1,0 +1,32 @@
+version: "3.0"
+services:
+   myapptest:
+      image: myapptest
+      container_name: test-app2
+      ports:
+        - 3002:3000
+      environment:
+        - MONGO_HOST=myapptestdb
+      depends_on:
+        - mongodb
+        - mongo-express  
+   mongodb:
+      image: mongo:3.0.0
+      container_name: myapptestdb
+      ports:
+        - 27017:27017      
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=example
+        - MONGO_INITDB_DATABASE=chat_dev
+   mongo-express:
+      image: mongo-express
+      restart: always
+      ports:
+        - 4003:8081
+      environment:
+        MONGOLAB_URI: myapptestdb://root:example@chat_dev:27017
+        #ME_CONFIG_MONGODB_ADMINUSERNAME: root
+        #ME_CONFIG_MONGODB_ADMINPASSWORD: example
+        #ME_CONFIG_MONGODB_URL: myapptestdb://root:example@chat_dev:27017/
+
