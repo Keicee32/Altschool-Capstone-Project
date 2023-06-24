@@ -26,7 +26,7 @@ process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/chat
 process.env.PORT = process.env.PORT || 3000;
 
 // connect our DB
-mongoose.connect("myapptestdb://root:example@chat_dev:27017/");
+mongoose.connect("myapptestdb://root:example@localhost:27017/chat_dev");
 
 process.on('uncaughtException', function (err) {
   console.log(err);
