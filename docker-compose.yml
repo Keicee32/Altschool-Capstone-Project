@@ -2,6 +2,7 @@ version: "3.0"
 services:
    myapptest:
       build: ./
+      image: myapptest
       container_name: test-app
       ports:
         - 3002:3000
@@ -9,10 +10,9 @@ services:
           #- ./:/app    
       environment:
         - MONGO_HOST=myapptestdb
-        - MONGOLAB_URI=myapptestdb://root:example@chat_dev:27017
+        - MONGOLAB_URI=mongodb://root:example@myapptestdb:27017/chat_dev
       depends_on:
-        - mongodb
-        - mongo-express
+        - mongodb       
       restart: on-failure  
    mongodb:
       image: mongodb/mongodb-community-server:latest
