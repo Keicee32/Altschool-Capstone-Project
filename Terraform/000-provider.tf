@@ -35,22 +35,22 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    host                   = module.AltSchool-Exam-EKS.cluster_endpoint
-    cluster_ca_certificate = base64decode(module.AltSchool-Exam-EKS.cluster_certificate_authority_data)
+    host                   = module.capstone-24-EKS.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.capstone-24-EKS.cluster_certificate_authority_data)
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
-      args        = ["eks", "get-token", "--cluster-name", module.AltSchool-Exam-EKS.cluster_name]
+      args        = ["eks", "get-token", "--cluster-name", module.capstone-24-EKS.cluster_name]
       command     = "aws"
     }
   }
 }
 
 provider "kubernetes" {
-  host                   = module.AltSchool-Exam-EKS.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.AltSchool-Exam-EKS.cluster_certificate_authority_data)
+  host                   = module.capstone-24-EKS.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.capstone-24-EKS.cluster_certificate_authority_data)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
-    args        = ["eks", "get-token", "--cluster-name", module.AltSchool-Exam-EKS.cluster_name]
+    args        = ["eks", "get-token", "--cluster-name", module.capstone-24-EKS.cluster_name]
     command     = "aws"
   }
 }
