@@ -22,11 +22,11 @@ const app = express();
 
 //set env vars
 //process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/chat_dev';
-process.env.MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/chat_dev';
+const dbUrl = process.env.MONGOLAB_URI || 'mongodb://mongodb:27017/chat_dev';
 process.env.PORT = process.env.PORT || 3000;
 
 // connect our DB
-mongoose.connect("mongodb://root:example@myapptestdb:27017/chat_dev");
+mongoose.connect(dbUrl);
 
 process.on('uncaughtException', function (err) {
   console.log(err);
