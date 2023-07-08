@@ -4,7 +4,7 @@
 
 data "aws_availability_zones" "azs" {}
 
-module "capstone-24-EKS-vpc" {
+module "capstone-24-vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.19.0"
 
