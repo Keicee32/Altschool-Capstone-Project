@@ -15,11 +15,11 @@ variable "database_subnet" {
   type = map(any)
 }
 variable "destination_cidr_block" {}
-variable "database_name" {}
+variable "db_username" {}
+variable "db_password" {}
 variable "ami_type" {}
 variable "instance_type" {}
 variable "cluster_name" {}
-variable "cluster_version" {}
 variable "domain_name" {}
 # variable "token" {}
 # variable "username" {} 
