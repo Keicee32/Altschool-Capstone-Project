@@ -79,3 +79,5 @@ resource "aws_route_table_association" "capstone-24-rtb-association" {
   subnet_id      = aws_subnet.capstone-24-pub-subnets[each.key].id
   route_table_id = aws_route_table.capstone-24-rtb.id
 }
+
+

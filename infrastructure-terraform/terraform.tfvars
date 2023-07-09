@@ -36,9 +36,9 @@ database_subnet = {
   }
 }
 destination_cidr_block = "0.0.0.0/0"
-database_name   = "capstone-24"
-ami_type        = "AL2_x86_64"
-instance_type   = "t3.medium"
-cluster_name    = "capstone-24-EKS-cluster"
-cluster_version = "1.27"
-domain_name     = "ibechuksvictor.live"
+database_name          = "capstone-24"
+ami_type               = "AL2_x86_64"
+instance_type          = "t3.medium"
+cluster_name           = "capstone-24-EKS-cluster"
+cluster_version        = "1.27"
+domain_name            = "ibechuksvictor.live"
