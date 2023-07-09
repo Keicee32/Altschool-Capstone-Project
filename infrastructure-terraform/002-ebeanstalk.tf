@@ -102,6 +102,18 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     name = "CrossZone"
     value = "true"
   }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name =  "SecurityGroups"
+    value = "${aws_security_group.capstone-24-ec2-sg.id}"
+  }
+
+  setting {
+    namespace = "aws:elb:loadbalancer"
+    name = "SecurityGroups"
+    value = "${aws_security_group.capstone-24-lb-sg.id}"
+  }
 }
 
 
