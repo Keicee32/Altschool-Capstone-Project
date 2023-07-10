@@ -114,4 +114,16 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     name      = "SecurityGroups"
     value     = aws_security_group.capstone-24-lb-sg.id
   }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = aws_acm_certificate.capstone-24-ssl-cert.arn
+  }
 }
