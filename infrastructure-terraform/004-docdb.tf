@@ -1,6 +1,7 @@
 #----------------------------------------------------
 #              Document DB Cluster
 #----------------------------------------------------
+
 resource "aws_docdb_subnet_group" "capstone-24-docdb-subnet-group" {
   name       = "${var.project_name}-docdb-subnet-group"
   subnet_ids = [for AZ in aws_subnet.capstone-24-db-subnets : AZ.id]
