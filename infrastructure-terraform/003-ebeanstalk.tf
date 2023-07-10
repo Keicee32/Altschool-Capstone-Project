@@ -53,7 +53,7 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   setting {
     namespace = "aws:ec2:instances"
     name      = "InstanceType"
-    value     = var.instance_type
+    value     = var.ec2_instance_type
   }
 
   setting {
