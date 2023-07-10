@@ -21,5 +21,5 @@ variable "ami_type" {}
 variable "instance_type" {}
 variable "cluster_name" {}
 variable "domain_name" {}
-# variable "token" {}
-# variable "username" {} 
+variable "token" {}
+variable "username" {} 
