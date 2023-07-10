@@ -4,12 +4,10 @@
 
 terraform {
   required_providers {
-
-
-    # namedotcom = {
-    #   source  = "lexfrei/namedotcom"
-    #   version = "~>1.0"
-    # }
+    namedotcom = {
+      source  = "lexfrei/namedotcom"
+      version = "~>1.0"
+    }
   }
 
   backend "s3" {
@@ -25,7 +23,7 @@ provider "aws" {
   region = var.region
 }
 
-# provider "namedotcom" {
-#   username = var.username
-#   token    = var.token
-# }
+provider "namedotcom" {
+  username = var.username
+  token    = var.token
+}

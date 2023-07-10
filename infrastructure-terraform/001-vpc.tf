@@ -167,6 +167,6 @@ resource "aws_security_group" "capstone-24-docdb-sg" {
   }
 
   tags = {
-    Name = "${var.project_name}-docudb-sg"
+    Name = "${var.project_name}-docdb-sg"
   }
 }
