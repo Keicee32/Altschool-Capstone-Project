@@ -42,7 +42,7 @@ resource "aws_docdb_cluster_parameter_group" "capstone-24-docdb-cluster-paramete
     name  = "tls"
     value = "disabled"
   }
-  
+
   tags = {
     Name = "${var.project_name}-docdb-cluster-parameter-group"
   }

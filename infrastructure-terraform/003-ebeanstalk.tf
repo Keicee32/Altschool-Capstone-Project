@@ -17,7 +17,7 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = aws_vpc.capstone-24-vpc.id
+    value     = "${aws_vpc.capstone-24-vpc.id}"
   }
 
   setting {
@@ -106,13 +106,13 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
-    value     = aws_security_group.capstone-24-ec2-sg.id
+    value     = "${aws_security_group.capstone-24-ec2-sg.id}"
   }
 
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "SecurityGroups"
-    value     = aws_security_group.capstone-24-lb-sg.id
+    value     = "${aws_security_group.capstone-24-lb-sg.id}"
   }
 
   setting {
@@ -124,6 +124,30 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = aws_acm_certificate.capstone-24-ssl-cert.arn
+    value     = "${aws_acm_certificate.capstone-24-ssl-cert.arn}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_HOST"
+    value     = "${aws_docdb_cluster.capstone-24-docdb-cluster.endpoint}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_PORT"
+    value     = "27017"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_USERNAME"
+    value     = var.db_username
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_PASSWORD"
+    value     = var.db_password
   }
 }
