@@ -2,17 +2,6 @@
 #                   Route53 Record
 #----------------------------------------------------
 
-# resource "aws_route53_record" "capstone-24-record" {
-#   zone_id = data.aws_route53_zone.hosted-zone.zone_id
-#   name    = var.domain_name
-#   type    = "CNAME"
-#   ttl     = 300
-
-#   records = [
-#     aws_elastic_beanstalk_environment.capstone-24-app-env.cname
-#   ]
-# }
-
 resource "aws_acm_certificate" "capstone-24-ssl-cert" {
   domain_name       = var.domain_name
   validation_method = "DNS"
