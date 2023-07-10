@@ -3,7 +3,7 @@
 #----------------------------------------------------
 
 resource "aws_elastic_beanstalk_application" "capstone-24-app" {
-  name        = var.project_name
+  name        = "${var.project_name}-app"
   description = "${var.project_name} application"
 
 }
@@ -11,6 +11,7 @@ resource "aws_elastic_beanstalk_application" "capstone-24-app" {
 resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   name                = "${var.project_name}-env"
   application         = aws_elastic_beanstalk_application.capstone-24-app.name
+  wait_for_ready_timeout = "30m"
   solution_stack_name = "64bit Amazon Linux 2 v3.5.9 running Docker"
   tier                = "WebServer"
 
@@ -150,4 +151,21 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     name      = "DB_PASSWORD"
     value     = var.db_password
   }
+}
+
+resource "aws_s3_bucket" "capstone-24-app" {
+  bucket = "${var.project_name}-app"
+}
+
+resource "aws_s3_object" "capstone-24-app" {
+  bucket = aws_s3_bucket.capstone-24-app.id
+  key    = "docker/capstone-24-app.zip"
+  source = "./capstone-24-app.zip"
+}
+resource "aws_elastic_beanstalk_application_version" "capstone-24-app-version" {
+  name        = "capstone-24-app-v1"
+  application = "${aws_elastic_beanstalk_application.capstone-24-app.name}"
+  description = "Application Version 1"
+  bucket      = aws_s3_bucket.capstone-24-app.id
+  key         = aws_s3_object.capstone-24-app.id
 }
