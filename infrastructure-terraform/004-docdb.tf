@@ -11,7 +11,7 @@ resource "aws_docdb_subnet_group" "capstone-24-docdb-subnet-group" {
 }
 
 resource "aws_docdb_cluster_instance" "capstone-24-docdb-cluster-instance" {
-  count              = 2
+  count              = 1
   identifier         = "${var.cluster_name}-instance-${count.index}"
   cluster_identifier = aws_docdb_cluster.capstone-24-docdb-cluster.id
   instance_class     = var.db_instance_class
@@ -36,7 +36,7 @@ resource "aws_docdb_cluster" "capstone-24-docdb-cluster" {
 
 resource "aws_docdb_cluster_parameter_group" "capstone-24-docdb-cluster-parameter-group" {
   name        = "${var.project_name}-docdb-cluster-parameter-group"
-  family      = "docdb3.6"
+  family      = "docdb5.0"
   description = "Parameter group for ${var.project_name} docdb cluster"
 
   parameter {

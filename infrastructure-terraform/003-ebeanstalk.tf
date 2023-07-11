@@ -153,21 +153,21 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
   # }
 }
 
-resource "aws_s3_bucket" "capstone-24-app" {
-  bucket = "${var.project_name}-app"
-}
+# resource "aws_s3_bucket" "capstone-24-app" {
+#   bucket = "${var.project_name}-app"
+# }
 
-resource "aws_s3_object" "capstone-24-app" {
-  bucket = aws_s3_bucket.capstone-24-app.id
-  key    = "docker/capstone-24-app.zip"
-  source = "Altschool-Capstone-Project/capstone-24-app.zip"
-  # etag   = filemd5("Altschool-Capstone-Project/capstone-24-app.zip")
-}
+# resource "aws_s3_object" "capstone-24-app" {
+#   bucket = aws_s3_bucket.capstone-24-app.id
+#   key    = "docker/capstone-24-app.zip"
+#   source = "Altschool-Capstone-Project/capstone-24-app.zip"
+#   # etag   = filemd5("Altschool-Capstone-Project/capstone-24-app.zip")
+# }
 
-resource "aws_elastic_beanstalk_application_version" "capstone-24-app-version" {
-  name        = "capstone-24-app-v1"
-  application = aws_elastic_beanstalk_application.capstone-24-app.name
-  description = "Application Version 1"
-  bucket      = aws_s3_bucket.capstone-24-app.id
-  key         = aws_s3_object.capstone-24-app.id
-}
+# resource "aws_elastic_beanstalk_application_version" "capstone-24-app-version" {
+#   name        = "capstone-24-app-v1"
+#   application = aws_elastic_beanstalk_application.capstone-24-app.name
+#   description = "Application Version 1"
+#   bucket      = aws_s3_bucket.capstone-24-app.id
+#   key         = aws_s3_object.capstone-24-app.id
+# }

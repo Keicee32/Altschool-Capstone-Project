@@ -77,14 +77,6 @@ resource "aws_security_group" "capstone-24-docdb-sg" {
     cidr_blocks = ["${aws_security_group.capstone-24-ec2-sg.id}"]
   }
 
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = var.ssh_cidr_block
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
