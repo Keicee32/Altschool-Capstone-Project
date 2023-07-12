@@ -1,7 +1,10 @@
-FROM node:7.1-alpine
+FROM node:current-alpine as builder
 WORKDIR /app
-COPY package.json /app
-COPY . /app
+COPY package.json .
 RUN npm install
-EXPOSE 3000 3001 3002
-ENTRYPOINT ["npm", "start"]
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine-slim
+EXPOSE 80
+COPY --from=builder /app/build /usr/share/nginx/html
