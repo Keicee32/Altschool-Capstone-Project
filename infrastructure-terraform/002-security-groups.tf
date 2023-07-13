@@ -37,19 +37,19 @@ resource "aws_security_group" "capstone-24-ec2-sg" {
   vpc_id      = aws_vpc.capstone-24-vpc.id
 
   ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["${aws_security_group.capstone-24-lb-sg.id}"]
+    description     = "HTTP"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.capstone-24-lb-sg.id}"]
   }
 
   ingress {
-    description = "HTTPS"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["${aws_security_group.capstone-24-lb-sg.id}"]
+    description     = "HTTPS"
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.capstone-24-lb-sg.id}"]
   }
 
   egress {
@@ -70,11 +70,11 @@ resource "aws_security_group" "capstone-24-docdb-sg" {
   vpc_id      = aws_vpc.capstone-24-vpc.id
 
   ingress {
-    description = "MongoDB"
-    from_port   = 27017
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["${aws_security_group.capstone-24-ec2-sg.id}"]
+    description     = "MongoDB"
+    from_port       = 27017
+    to_port         = 27017
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.capstone-24-ec2-sg.id}"]
   }
 
   egress {
