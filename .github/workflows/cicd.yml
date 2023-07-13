@@ -1,0 +1,84 @@
+name: Deploy App to ELastic Beanstalk
+on:
+  push:
+    branches:
+      - master
+      
+env:
+  tf_actions_working_dir: ./infrastructure-terraform
+
+jobs:
+  deploy-aws-infrastructure:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ env.tf_actions_working_dir }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: SetUp Terraform
+        uses: hashicorp/setup-terraform@v2
+        
+      - name: Format Terraform files
+        run: terraform fmt
+
+      - name: Initialization Terraform Providers
+        run: terraform init
+        
+      - name: Validate Terraform Scripts
+        run: terraform validate
+
+      - name: Plan Terraform Deployments
+        run: terraform plan
+
+      - name: Apply Terraform Changes
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_token: ${{ secrets.TF_VAR_token }}
+          TF_VAR_username: ${{ secrets.TF_VAR_username }}
+          
+  elasticbeanstalk-app-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Latest Repo
+        uses: actions/checkout@master
+        
+      - name: Generate Deployment Package 
+        run: zip -r capstone-24-app.zip * -x "**node_modules**" -x "**infrastructure-terraform**"
+        
+      - name: Get Timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+        
+      - name: Run String Replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: "${{ steps.current-time.outputs.time }}"
+          replace-with: '-'
+          flags: 'g'
+          
+      - name: Deploy to Elastic BeanStalk
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: capstone-24-app
+          environment_name: capstone-24-app-env
+          version_label: "capstone-24-app-${{ steps.format-time.outputs.replaced }}"
+          region: ${{ secrets.AWS_REGION }}
+          deployment_package: capstone-24-app.zip
+          
+          
