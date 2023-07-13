@@ -44,7 +44,7 @@ jobs:
           TF_VAR_username: ${{ secrets.TF_VAR_username }}
 
       - name: Apply Terraform Changes
-        run: terraform apply -auto-approve
+        run: terraform apply -lock=false -auto-approve
         env:
           TF_VAR_token: ${{ secrets.TF_VAR_token }}
           TF_VAR_username: ${{ secrets.TF_VAR_username }}
