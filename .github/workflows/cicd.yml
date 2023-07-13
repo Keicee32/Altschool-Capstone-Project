@@ -38,7 +38,7 @@ jobs:
         run: terraform validate
 
       - name: Plan Terraform Deployments
-        run: terraform plan
+        run: terraform plan -lock=false
         env:
           TF_VAR_token: ${{ secrets.TF_VAR_token }}
           TF_VAR_username: ${{ secrets.TF_VAR_username }}
