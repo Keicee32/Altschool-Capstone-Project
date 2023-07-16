@@ -8,6 +8,11 @@ resource "aws_docdb_subnet_group" "capstone-24-docdb-subnet-group" {
   tags = {
     Name = "${var.project_name}-docdb-subnet-group"
   }
+
+  # depends_on = [
+  #   aws_subnet.capstone-24-db-subnets,
+  #   aws_docdb_cluster.capstone-24-docdb-cluster
+  # ]
 }
 
 resource "aws_docdb_cluster_instance" "capstone-24-docdb-cluster-instance" {
@@ -18,6 +23,10 @@ resource "aws_docdb_cluster_instance" "capstone-24-docdb-cluster-instance" {
   tags = {
     Name = "${var.project_name}-docdb-cluster-instance"
   }
+
+  # depends_on = [
+  #   aws_docdb_cluster.capstone-24-docdb-cluster
+  # ]
 }
 
 resource "aws_docdb_cluster" "capstone-24-docdb-cluster" {
@@ -32,6 +41,11 @@ resource "aws_docdb_cluster" "capstone-24-docdb-cluster" {
   tags = {
     Name = "${var.project_name}-docdb-cluster"
   }
+
+  depends_on = [ 
+    aws_security_group.capstone-24-docdb-sg,
+    aws_docdb_subnet_group.capstone-24-docdb-subnet-group
+    ]
 }
 
 resource "aws_docdb_cluster_parameter_group" "capstone-24-docdb-cluster-parameter-group" {

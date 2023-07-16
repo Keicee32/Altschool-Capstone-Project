@@ -140,6 +140,14 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     value     = "27017"
   }
 
+  depends_on = [ 
+    aws_elastic_beanstalk_application.capstone-24-app, 
+    aws_docdb_cluster.capstone-24-docdb-cluster, 
+    aws_security_group.capstone-24-ec2-sg, 
+    aws_security_group.capstone-24-lb-sg, 
+    aws_vpc.capstone-24-vpc 
+  ]
+
   # setting {
   #   namespace = "aws:elasticbeanstalk:application:environment"
   #   name      = "DB_USERNAME"

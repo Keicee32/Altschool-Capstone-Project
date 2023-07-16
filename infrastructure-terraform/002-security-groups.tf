@@ -1,3 +1,4 @@
+# Create Security Group for Load Balancer
 resource "aws_security_group" "capstone-24-lb-sg" {
   name        = "${var.project_name}-lb-sg"
   description = "Security group for ${var.project_name} load balancer"
@@ -31,6 +32,7 @@ resource "aws_security_group" "capstone-24-lb-sg" {
   }
 }
 
+# Create Security Group for EC2 Instance.
 resource "aws_security_group" "capstone-24-ec2-sg" {
   name        = "${var.project_name}-lb-sg"
   description = "Security group for ${var.project_name} ec2 instances"
@@ -62,8 +64,10 @@ resource "aws_security_group" "capstone-24-ec2-sg" {
   tags = {
     Name = "${var.project_name}-ec2-sg"
   }
+  depends_on = [ aws_security_group.capstone-24-lb-sg ]
 }
 
+# Create Security Group for DocumentDB
 resource "aws_security_group" "capstone-24-docdb-sg" {
   name        = "${var.project_name}-lb-sg"
   description = "Security group for ${var.project_name} Database"
@@ -87,4 +91,5 @@ resource "aws_security_group" "capstone-24-docdb-sg" {
   tags = {
     Name = "${var.project_name}-docdb-sg"
   }
+  depends_on = [ aws_security_group.capstone-24-ec2-sg ]
 }
