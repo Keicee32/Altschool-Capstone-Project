@@ -53,15 +53,10 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
 
   setting {
     namespace = "aws:ec2:instances"
-    name      = "InstanceType"
+    name      = "InstanceTypes"
     value     = var.ec2_instance_type
   }
 
-  setting {
-    namespace = "aws:ec2:instances"
-    name      = "SecurityGroups"
-    value     = ""
-  }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
@@ -76,13 +71,13 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
 
   setting {
     namespace = "aws:autoscaling:asg"
-    name      = "Custom Availability Zones"
-    value     = join(", ", [for AZ in aws_subnet.capstone-24-pri-subnets : AZ.availability_zone])
+    name      = "Availability Zones"
+    value     = "Any"
   }
 
   setting {
     namespace = "aws:autoscaling:asg"
-    name      = "EnableCapacityRebalance"
+    name      = "EnableCapacityRebalancing"
     value     = "true"
   }
 
@@ -116,11 +111,11 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     value     = aws_security_group.capstone-24-lb-sg.id
   }
 
-  setting {
-    namespace = "aws:elbv2:listener:443"
-    name      = "Protocol"
-    value     = "HTTPS"
-  }
+  # setting {
+  #   namespace = "aws:elbv2:listener:443"
+  #   name      = "Protocol"
+  #   value     = "HTTPS"
+  # }
 
   # setting {
   #   namespace = "aws:elbv2:listener:443"
@@ -140,12 +135,12 @@ resource "aws_elastic_beanstalk_environment" "capstone-24-app-env" {
     value     = "27017"
   }
 
-  depends_on = [ 
-    aws_elastic_beanstalk_application.capstone-24-app, 
-    aws_docdb_cluster.capstone-24-docdb-cluster, 
-    aws_security_group.capstone-24-ec2-sg, 
-    aws_security_group.capstone-24-lb-sg, 
-    aws_vpc.capstone-24-vpc 
+  depends_on = [
+    aws_elastic_beanstalk_application.capstone-24-app,
+    aws_docdb_cluster.capstone-24-docdb-cluster,
+    aws_security_group.capstone-24-ec2-sg,
+    aws_security_group.capstone-24-lb-sg,
+    aws_vpc.capstone-24-vpc
   ]
 
   # setting {

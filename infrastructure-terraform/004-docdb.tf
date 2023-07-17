@@ -38,14 +38,15 @@ resource "aws_docdb_cluster" "capstone-24-docdb-cluster" {
   final_snapshot_identifier = "capstone-24-docdb-cluster-final-snapshot"
   vpc_security_group_ids    = [aws_security_group.capstone-24-docdb-sg.id]
   db_subnet_group_name      = aws_docdb_subnet_group.capstone-24-docdb-subnet-group.id
+
   tags = {
     Name = "${var.project_name}-docdb-cluster"
   }
 
-  depends_on = [ 
+  depends_on = [
     aws_security_group.capstone-24-docdb-sg,
     aws_docdb_subnet_group.capstone-24-docdb-subnet-group
-    ]
+  ]
 }
 
 resource "aws_docdb_cluster_parameter_group" "capstone-24-docdb-cluster-parameter-group" {
