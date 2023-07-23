@@ -1,5 +1,5 @@
 #----------------------------------------------------
-#                     Elastic Beanstalk
+#                  Elastic Beanstalk
 #----------------------------------------------------
 
 resource "aws_elastic_beanstalk_application" "capstone-24-app" {
